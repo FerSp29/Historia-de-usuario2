@@ -1,57 +1,39 @@
-# Lista global para almacenar los productos del inventario
-# Cada producto sera un diccionario con nombre, precio y cantidad
-inventario = []
+# Documentacion - Este programa que registra un producto y valida los datos de entrada, calcula el costo total y
+# muestra el resumen.
 
-def agregar_producto():
-    """Solicita datos al usuario y añade un nuevo producto a la lista."""
-    nombre = input("Nombre del producto: ")
-    precio = float(input("Precio: ")) # Convertimos a float para permitir decimales
-    cantidad = int(input("Cantidad: ")) # Convertimos a int para numeros enteros
+# Entrada de datos con validacion
+# Solicitar el nombre del producto con (string)
+nombre = input("Ingrese el nombre del producto: ")
 
-   # Creamos un diccionario con la estructura definida
-    producto = {"nombre": nombre, "precio": precio, "cantidad": cantidad}
-    inventario.append(producto)
-    print("Producto agregado.\n")
+# Solicitar y validar el precio con (float)
+while True:
+    try:
+        precio = float(input("Ingrese el precio del producto: "))
+        if precio < 0:
+            print("Error: El precio no puede estar en negativo. ")
+            continue
+        break
+    except ValueError:
+        print("Error: ingrese un valor numerico para el precio. ")
 
-def mostrar_inventario():
-    if not inventario:
-        print("El inventario está vacío.\n")
-    else:
-        for p in inventario:
-            print(f"Producto: {p['nombre']}, Precio: {p['precio']}, Cantidad: {p['cantidad']}")
-            print("")
-        
-def calcular_estadisticas():
-    if not inventario:
-        print("No hay datos.\n")
-        return
+# Solicitar y validar la cantidad con (int)
+        while True:
+            try:
+                cantidad = int(input("Ingrese la cantidad del producto: "))
+                if cantidad < 0:
+                    print("Error: la cantidad no puede ser negativa. ")
+                    continue
+                break
+            except ValueError:
+                print("Error: ingrese un numero entero para la cantidad. ")
 
-    total_valor = 0
-    for p in inventario:
-        total_valor += p['precio'] * p['cantidad']
+# Operacion matematica (costo total)
+# Se realiza despues de validar que los datos sean correctos.
+                costo_total = precio * cantidad
 
-    print(f"Valor total: {total_valor}")
-    print(f"Total productos: {len(inventario)}\n")
+# Mostrar resultado en consola
+# Formato: "Productos: Lapiz. Precio: 500. Cantidad: 3. Total: 1500"
+                print(f"\nProducto: {nombre}. Precio: {precio}. Cantidad: {cantidad}. Total: {costo_total}")
 
-def menu_principal():
-    while True:
-        print("1. Agregar producto")
-        print("2. Mostrar inventario")
-        print("3. Calcular estadisticas")
-        print("4. Salir")
-
-        opcion = input("Seleccione: ")
-
-        if opcion == "1":
-            agregar_producto()
-        elif opcion == "2":
-            mostrar_inventario()
-        elif opcion == "3":
-            calcular_estadisticas()
-        elif opcion == "4":
-            break
-        else:
-            print("Opción no valida.\n")
-
-if __name__ == "__main__":
-    menu_principal()
+# El programa permite la gestion basica de inventario asegurando que los calculos financieros se realicen solo 
+# con datos numericos validos.
